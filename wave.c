@@ -7,7 +7,7 @@
 ISR(ADC_vect)
 {
   // sets the new TOP value for the timer from analog
-  OCR1A = (float)ADC / 1023 * 0xFFFF;
+  OCR1A = ADC;
   //printf("adc interrupt \n");
   //ADCSRA &= ~(1 << ADSC);
 
@@ -56,6 +56,7 @@ int main(){
 
   ADMUX &= 0xf0; // clears the selected pin
   ADMUX |= (uint8_t)0;   // selects the pin
+  ADMUX |= (1 << ADLAR);
   // =========================
 
 
