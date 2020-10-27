@@ -11,7 +11,7 @@ enum PrescalerValues{
     V1024 = 1024
 };
 
-void TopSwitch();   // works only on the DDB1 port
+void TopSwitch(); // have to set the prescaler before this btw works only on DDB1
 
 void CompareSwitch(int pin);    // have to set the prescaler before this btw (only DDB1 and DDB2 pins are valid)
 
