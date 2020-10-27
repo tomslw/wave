@@ -6,10 +6,10 @@ OBJCOPY = avr-objcopy
 
 #my project
 TARGET = wave
-OBJECTS = wave.o adc.o uart.o
+OBJECTS = wave.o adc.o wavemod.o
 
 # is going to rebuild them if changed
-HEADERS = adc.h uart.h
+HEADERS = adc.h uart.h wavemod.h
 
 #the microcontroller and paramaters
 MCU = atmega328p
