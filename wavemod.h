@@ -20,6 +20,6 @@ void SetPrescaler(enum PrescalerValues val);
 void ClockGen(long frequency); // overwrites the prescaler (no need to set the prescaler for this one)
 // MIN frequency is 1hz
 // The precision is lost over 80khz if you need unconventional frequencies.
-// It can do MAX 4Mhz but the square wave looks more like a tooth than a square, it can do 2Mhz, 1Mhz and 800khz too, same applies.
+// It can do MAX 4Mhz but the square wave looks more like a tooth than a square, it can do 4Mhz, 2Mhz, 1Mhz and 800khz too, same applies.
 
 #endif
