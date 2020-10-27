@@ -25,7 +25,7 @@ void TopSwitch()
 
     DDRB |= (1 << DDB1); // sets the pin to output
 
-    TCCR1A |= (1 << COM1A0) | (1 << COM1A1); // make it turn on the pin on compare
+    TCCR1A |= (1 << COM1A0); // make it turn on the pin on compare
 }
 
 void CompareSwitch(int pin) // have to set the prescaler before this btw (only DDB1 and DDB2 pins are valid)
