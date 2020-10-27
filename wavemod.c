@@ -2,6 +2,8 @@
 #include <avr/interrupt.h>
 #include "wavemod.h"
 
+#define CPU F_CPU
+
 volatile int val;
 
 volatile int *const timer_value = &val;
@@ -54,6 +56,41 @@ void CompareSwitch(int pin) // have to set the prescaler before this btw (only D
     }
 }
 
+void ClockGen(long frequency)
+{
+    enum PrescalerValues prescaler;
+    if (frequency > 1000) // because of stability issues under 1khz
+    {
+        prescaler = V1;
+        SetPrescaler(V1);
+    }
+    else if (frequency > 500)
+    {
+        prescaler = V64;
+        SetPrescaler(V64);
+    }
+    else
+    {
+        prescaler = V256;
+        SetPrescaler(V256);
+    }
+
+    TCCR1A &= ~((1 << WGM11) | (1 << WGM10)); // clears the pins
+    TCCR1B &= ~((1 << WGM12) | (1 << WGM13)); // aka clears the previous config
+
+    TCCR1A |= (1 << WGM10) | (1 << WGM11);
+    TCCR1B |= (1 << WGM13) | (1 << WGM12); // fast PWM mode that looks at OCR1A for TOP
+
+    OCR1A = CPU / prescaler / frequency / 2; // TOP for the timer
+    if (OCR1A % 2 == 0)                      // stability issues with even numbers (no clue why)
+    {
+        OCR1A -= 1;
+    }
+
+    DDRB |= (1 << DDB1); // sets the pin to output
+
+    TCCR1A |= (1 << COM1A0); // make it turn on the pin on compare
+}
 
 void SetPrescaler(enum PrescalerValues val)
 {
