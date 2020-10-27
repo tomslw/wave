@@ -1,7 +1,7 @@
 #ifndef _WAVEMOD_H
 #define _WAVEMOD_H
 
-extern int * const timer_value; // can be from 0x0000 to 0xFFFF
+extern volatile int *const timer_value; // can be from 0x0000 to 0xFFFF
 
 enum PrescalerValues{
     V1 = 1,
