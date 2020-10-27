@@ -2,10 +2,13 @@
 #include <avr/interrupt.h>
 #include "wavemod.h"
 
+volatile int val;
+
+volatile int *const timer_value = &val;
 
 ISR(TIMER1_OVF_vect)
 {
-    OCR1A = *timer_value;
+    OCR1A = val;
 }
 
 void TopSwitch()
